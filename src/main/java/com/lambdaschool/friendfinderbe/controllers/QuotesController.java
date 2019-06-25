@@ -26,8 +26,7 @@ public class QuotesController
     @Autowired
     QuoteService quoteService;
 
-    @GetMapping(value = "/quotes",
-                produces = {"application/json"})
+    @GetMapping(value = "/quotes", produces = {"application/json"})
     public ResponseEntity<?> listAllQuotes(HttpServletRequest request)
     {
         logger.trace(request.getRequestURI() + " accessed");
@@ -37,11 +36,8 @@ public class QuotesController
     }
 
 
-    @GetMapping(value = "/quote/{quoteId}",
-                produces = {"application/json"})
-    public ResponseEntity<?> getQuote(HttpServletRequest request,
-                                      @PathVariable
-                                              Long quoteId)
+    @GetMapping(value = "/quote/{quoteId}", produces = {"application/json"})
+    public ResponseEntity<?> getQuote(HttpServletRequest request, @PathVariable Long quoteId)
     {
         logger.trace(request.getRequestURI() + " accessed");
 
@@ -50,11 +46,8 @@ public class QuotesController
     }
 
 
-    @GetMapping(value = "/username/{userName}",
-                produces = {"application/json"})
-    public ResponseEntity<?> findQuoteByUserName(HttpServletRequest request,
-                                                 @PathVariable
-                                                         String userName)
+    @GetMapping(value = "/username/{userName}", produces = {"application/json"})
+    public ResponseEntity<?> findQuoteByUserName(HttpServletRequest request, @PathVariable String userName)
     {
         logger.trace(request.getRequestURI() + " accessed");
 
@@ -64,9 +57,7 @@ public class QuotesController
 
 
     @PostMapping(value = "/quote")
-    public ResponseEntity<?> addNewQuote(HttpServletRequest request, @Valid
-    @RequestBody
-            Quote newQuote) throws URISyntaxException
+    public ResponseEntity<?> addNewQuote(HttpServletRequest request, @Valid @RequestBody Quote newQuote) throws URISyntaxException
     {
         logger.trace(request.getRequestURI() + " accessed");
 
@@ -82,9 +73,7 @@ public class QuotesController
 
 
     @DeleteMapping("/quote/{id}")
-    public ResponseEntity<?> deleteQuoteById(HttpServletRequest request,
-                                             @PathVariable
-                                                     long id)
+    public ResponseEntity<?> deleteQuoteById(HttpServletRequest request, @PathVariable long id)
     {
         logger.trace(request.getRequestURI() + " accessed");
 

@@ -25,8 +25,7 @@ public class RolesController
     @Autowired
     RoleService roleService;
 
-    @GetMapping(value = "/roles",
-                produces = {"application/json"})
+    @GetMapping(value = "/roles", produces = {"application/json"})
     public ResponseEntity<?> listRoles(HttpServletRequest request)
     {
         logger.trace(request.getRequestURI() + " accessed");
@@ -36,11 +35,8 @@ public class RolesController
     }
 
 
-    @GetMapping(value = "/role/{roleId}",
-                produces = {"application/json"})
-    public ResponseEntity<?> getRole(HttpServletRequest request,
-                                     @PathVariable
-                                             Long roleId)
+    @GetMapping(value = "/role/{roleId}", produces = {"application/json"})
+    public ResponseEntity<?> getRole(HttpServletRequest request, @PathVariable Long roleId)
     {
         logger.trace(request.getRequestURI() + " accessed");
 
@@ -50,9 +46,7 @@ public class RolesController
 
 
     @PostMapping(value = "/role")
-    public ResponseEntity<?> addNewRole(HttpServletRequest request, @Valid
-    @RequestBody
-            Role newRole) throws URISyntaxException
+    public ResponseEntity<?> addNewRole(HttpServletRequest request, @Valid @RequestBody Role newRole) throws URISyntaxException
     {
         logger.trace(request.getRequestURI() + " accessed");
 
@@ -67,14 +61,11 @@ public class RolesController
     }
 
 
-//    @PostMapping(value = "/user/{userid}/role/{roleid}")
-
+    //    @PostMapping(value = "/user/{userid}/role/{roleid}")
 
 
     @DeleteMapping("/role/{id}")
-    public ResponseEntity<?> deleteRoleById(HttpServletRequest request,
-                                            @PathVariable
-                                                    long id)
+    public ResponseEntity<?> deleteRoleById(HttpServletRequest request, @PathVariable long id)
     {
         logger.trace(request.getRequestURI() + " accessed");
 

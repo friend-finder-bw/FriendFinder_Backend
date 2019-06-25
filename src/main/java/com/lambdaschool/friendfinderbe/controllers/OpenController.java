@@ -32,12 +32,8 @@ public class OpenController
     @Autowired
     private RoleService roleService;
 
-    @PostMapping(value = "/createnewuser",
-                 consumes = {"application/json"},
-                 produces = {"application/json"})
-    public ResponseEntity<?> addNewUser(HttpServletRequest request, @Valid
-    @RequestBody
-            User newuser) throws URISyntaxException
+    @PostMapping(value = "/createnewuser", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<?> addNewUser(HttpServletRequest request, @Valid @RequestBody User newuser) throws URISyntaxException
     {
         logger.trace(request.getRequestURI() + " accessed");
 

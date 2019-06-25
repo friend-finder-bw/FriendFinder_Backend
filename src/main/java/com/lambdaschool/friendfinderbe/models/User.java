@@ -19,22 +19,33 @@ public class User extends Auditable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
 
-    @Column(nullable = false,
-            unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @OneToMany(mappedBy = "user",
-               cascade = CascadeType.ALL)
+    @Column
+    private String email;
+
+    @Column
+    private String location;
+
+    @Column
+    private int age;
+
+    @Column
+    private String gender;
+
+    @Column
+    private String hobby;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("user")
     private List<UserRoles> userRoles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user",
-               cascade = CascadeType.ALL,
-               orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("user")
     private List<Quote> quotes = new ArrayList<>();
 
@@ -87,6 +98,56 @@ public class User extends Auditable
     public void setPasswordNoEncrypt(String password)
     {
         this.password = password;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public String getLocation()
+    {
+        return location;
+    }
+
+    public void setLocation(String location)
+    {
+        this.location = location;
+    }
+
+    public int getAge()
+    {
+        return age;
+    }
+
+    public void setAge(int age)
+    {
+        this.age = age;
+    }
+
+    public String getGender()
+    {
+        return gender;
+    }
+
+    public void setGender(String gender)
+    {
+        this.gender = gender;
+    }
+
+    public String getHobby()
+    {
+        return hobby;
+    }
+
+    public void setHobby(String hobby)
+    {
+        this.hobby = hobby;
     }
 
     public List<UserRoles> getUserRoles()
