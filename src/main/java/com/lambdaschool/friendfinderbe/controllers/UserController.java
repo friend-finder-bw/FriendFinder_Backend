@@ -50,6 +50,15 @@ public class UserController
     }
 
 
+    @GetMapping(value = "/currentuser", produces = {"application/json"})
+    @ResponseBody
+    public ResponseEntity<?> getCurrentUser(Authentication authentication)
+    {
+        User user = userService.findUserByName(authentication.getName());
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+
     @GetMapping(value = "/getusername", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<?> getCurrentUserName(HttpServletRequest request, Authentication authentication)
