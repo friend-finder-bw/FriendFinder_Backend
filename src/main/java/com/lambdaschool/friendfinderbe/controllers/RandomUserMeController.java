@@ -65,12 +65,71 @@ public class RandomUserMeController
             throw new ResourceNotFoundException("Invalid count. Range should be between 1 and 5000!");
         }
 
+        if (gender.equals("")) {
+            throw new ResourceNotFoundException("Gender type must be specified!");
+        }
+
         String genderSort = "male";
         if (gender.toLowerCase(Locale.US).startsWith("f"))
             genderSort = "female";
 
         ExternalAccess externalAccess = new ExternalAccess();
         ArrayList<RandomUserMe> arrayList = externalAccess.connectAndRetrieveJson("?gender=" + genderSort + "&results=" + count.toString());
+
+        return new ResponseEntity<>(arrayList, HttpStatus.OK);
+    }
+
+
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping(value = "/city/{city}/state/{state}/count/{count}", produces = {"application/json"})
+    public ResponseEntity<?> getProfilesCountByLocation(HttpServletRequest request, @PathVariable String city, @PathVariable String state, @PathVariable Long count)
+    {
+        logger.trace(request.getRequestURI() + " accessed");
+
+        if (count < 1 || count > 5000)
+        {
+            throw new ResourceNotFoundException("Invalid count. Range should be between 1 and 5000!");
+        }
+
+        if (city.equals("") || state.equals("")) {
+            throw new ResourceNotFoundException("Both city and state must be specified!");
+        }
+
+        ExternalAccess externalAccess = new ExternalAccess();
+        ArrayList<RandomUserMe> arrayList = externalAccess.connectAndRetrieveJson("?results=" + count.toString());
+
+        for (RandomUserMe entry: arrayList)
+        {
+            entry.setCity(city);
+            entry.setState(state);
+        }
+
+        return new ResponseEntity<>(arrayList, HttpStatus.OK);
+    }
+
+
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping(value = "/hobby/{hobby}/count/{count}", produces = {"application/json"})
+    public ResponseEntity<?> getProfilesCountByHobby(HttpServletRequest request, @PathVariable String hobby, @PathVariable Long count)
+    {
+        logger.trace(request.getRequestURI() + " accessed");
+
+        if (count < 1 || count > 5000)
+        {
+            throw new ResourceNotFoundException("Invalid count. Range should be between 1 and 5000!");
+        }
+
+        if (hobby.equals("")) {
+            throw new ResourceNotFoundException("Hobby must be specified!");
+        }
+
+        ExternalAccess externalAccess = new ExternalAccess();
+        ArrayList<RandomUserMe> arrayList = externalAccess.connectAndRetrieveJson("?results=" + count.toString());
+
+        for (RandomUserMe entry: arrayList)
+        {
+            entry.setHobby(hobby);
+        }
 
         return new ResponseEntity<>(arrayList, HttpStatus.OK);
     }
