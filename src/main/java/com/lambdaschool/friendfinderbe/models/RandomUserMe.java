@@ -116,7 +116,8 @@ public class RandomUserMe
         }
         try
         {
-            this.postcode = Integer.toString(jsonObject.getJSONObject("location").getInt("postcode"));
+            Object value = jsonObject.getJSONObject("location").get("postcode");
+            this.postcode = value.toString();
         } catch (JSONException e)
         {
             e.printStackTrace();
