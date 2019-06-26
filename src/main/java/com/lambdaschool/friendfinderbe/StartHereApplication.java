@@ -1,6 +1,5 @@
 package com.lambdaschool.friendfinderbe;
 
-import com.lambdaschool.friendfinderbe.handlers.ExternalAccess;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -21,8 +20,5 @@ public class StartHereApplication
 
         DispatcherServlet dispatcherServlet = (DispatcherServlet) ctx.getBean("dispatcherServlet");
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
-
-        ExternalAccess externalAccess=new ExternalAccess();
-        externalAccess.connectAndRetrieveJson("?results=10");
     }
 }

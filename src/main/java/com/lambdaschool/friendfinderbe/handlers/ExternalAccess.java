@@ -1,8 +1,5 @@
 package com.lambdaschool.friendfinderbe.handlers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lambdaschool.friendfinderbe.models.RandomUserMe;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.json.JSONArray;
@@ -16,14 +13,15 @@ import java.util.ArrayList;
 
 public class ExternalAccess
 {
-    public ArrayList<RandomUserMe> connectAndRetrieveJson(String urlSuffix) {
+    public ArrayList<RandomUserMe> connectAndRetrieveJson(String urlSuffix)
+    {
         HttpURLConnection connection = null;
         BufferedReader reader = null;
-        ArrayList<RandomUserMe> arrayList=new ArrayList<>();
+        ArrayList<RandomUserMe> arrayList = new ArrayList<>();
 
         try
         {
-            URL restAPIUrl = new URL("https://randomuser.me/api/"+urlSuffix);
+            URL restAPIUrl = new URL("https://randomuser.me/api/" + urlSuffix);
             connection = (HttpURLConnection) restAPIUrl.openConnection();
             connection.setRequestMethod("GET");
 
@@ -36,9 +34,10 @@ public class ExternalAccess
             }
 
             JSONObject jsonObject = new JSONObject(jsonRawData.toString());
-            JSONArray jsonArray  = jsonObject.getJSONArray("results");
+            JSONArray jsonArray = jsonObject.getJSONArray("results");
 
-            for (int i = 0; i < jsonArray.length(); ++i) {
+            for (int i = 0; i < jsonArray.length(); ++i)
+            {
                 arrayList.add(new RandomUserMe(jsonArray.getJSONObject(i)));
             }
 
