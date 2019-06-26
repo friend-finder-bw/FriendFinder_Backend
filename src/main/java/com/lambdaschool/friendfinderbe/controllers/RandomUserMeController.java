@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/profiles")
@@ -48,6 +49,28 @@ public class RandomUserMeController
 
         ExternalAccess externalAccess = new ExternalAccess();
         ArrayList<RandomUserMe> arrayList = externalAccess.connectAndRetrieveJson("?results=" + count.toString());
+
+        return new ResponseEntity<>(arrayList, HttpStatus.OK);
+    }
+
+
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping(value = "/gender/{gender}/count/{count}", produces = {"application/json"})
+    public ResponseEntity<?> getProfilesCountByGender(HttpServletRequest request, @PathVariable String gender, @PathVariable Long count)
+    {
+        logger.trace(request.getRequestURI() + " accessed");
+
+        if (count < 1 || count > 5000)
+        {
+            throw new ResourceNotFoundException("Invalid count. Range should be between 1 and 5000!");
+        }
+
+        String genderSort = "male";
+        if (gender.toLowerCase(Locale.US).startsWith("f"))
+            genderSort = "female";
+
+        ExternalAccess externalAccess = new ExternalAccess();
+        ArrayList<RandomUserMe> arrayList = externalAccess.connectAndRetrieveJson("?gender=" + genderSort + "&results=" + count.toString());
 
         return new ResponseEntity<>(arrayList, HttpStatus.OK);
     }
