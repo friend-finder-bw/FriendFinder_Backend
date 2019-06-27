@@ -2,6 +2,8 @@ package com.lambdaschool.friendfinderbe.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -11,33 +13,42 @@ import java.util.List;
 
 // User is considered the parent entity
 
+@ApiModel(value = "User", description = "The User Entity")
 @Entity
 @Table(name = "users")
 public class User extends Auditable
 {
+    @ApiModelProperty(name = "userid", value = "Primary key for User", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
 
+    @ApiModelProperty(name = "username", value = "User Name", required = true, example = "Chuck")
     @Column(nullable = false, unique = true)
     private String username;
 
+    @ApiModelProperty(name = "password", value = "User Password", required = true, example = "**********")
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @ApiModelProperty(name = "email", value = "User Email", required = true, example = "person@lambdaschool.com")
     @Column
     private String email;
 
+    @ApiModelProperty(name = "location", value = "User City, State", required = true, example = "Minneapolis, MN")
     @Column
     private String location;
 
+    @ApiModelProperty(name = "age", value = "User Age", required = true, example = "18")
     @Column
     private int age;
 
+    @ApiModelProperty(name = "gender", value = "User Gender", required = true, example = "male")
     @Column
     private String gender;
 
+    @ApiModelProperty(name = "hobby", value = "User Hobby", required = true, example = "Outdoors")
     @Column
     private String hobby;
 

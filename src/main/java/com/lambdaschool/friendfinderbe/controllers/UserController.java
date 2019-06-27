@@ -1,7 +1,12 @@
 package com.lambdaschool.friendfinderbe.controllers;
 
+import com.lambdaschool.friendfinderbe.models.ErrorDetail;
+import com.lambdaschool.friendfinderbe.models.RandomUserMe;
 import com.lambdaschool.friendfinderbe.models.User;
 import com.lambdaschool.friendfinderbe.services.UserService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +55,10 @@ public class UserController
     }
 
 
+    @ApiOperation(value = "Retrieves your user profile", response = User.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Profile Found", response = User.class),
+            @ApiResponse(code = 404, message = "Profile Not Found", response = ErrorDetail.class)})
     @GetMapping(value = "/currentuser", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<?> getCurrentUser(Authentication authentication)

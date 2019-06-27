@@ -1,14 +1,18 @@
 package com.lambdaschool.friendfinderbe.models;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.persistence.*;
 
+@ApiModel(value = "RandomUserMe", description = "The User Profile Entity")
 @Entity
 @Table(name = "randomuserme")
 public class RandomUserMe
 {
+    @ApiModelProperty(name = "id", value = "Primary key for RandomUserMe", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

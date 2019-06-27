@@ -1,5 +1,10 @@
 package com.lambdaschool.friendfinderbe.controllers;
 
+import com.lambdaschool.friendfinderbe.models.ErrorDetail;
+import com.lambdaschool.friendfinderbe.models.User;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -17,6 +22,10 @@ public class LogoutController
     @Autowired
     private TokenStore tokenStore;
 
+    @ApiOperation(value = "Logs out the current user", response = User.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Logout Complete", response = User.class),
+            @ApiResponse(code = 404, message = "Logout Failed", response = ErrorDetail.class)})
     @RequestMapping(value = "/oauth/revoke-token", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public void logout(HttpServletRequest request)
