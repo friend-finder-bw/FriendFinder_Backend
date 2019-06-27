@@ -65,7 +65,7 @@ public class RandomUserMeController
             throw new ResourceNotFoundException("Invalid count. Range should be between 1 and 5000!");
         }
 
-        if (gender.equals("")) {
+        if (gender.trim().equals("")) {
             throw new ResourceNotFoundException("Gender type must be specified!");
         }
 
@@ -91,7 +91,7 @@ public class RandomUserMeController
             throw new ResourceNotFoundException("Invalid count. Range should be between 1 and 5000!");
         }
 
-        if (city.equals("") || state.equals("")) {
+        if (city.trim().equals("") || state.trim().equals("")) {
             throw new ResourceNotFoundException("Both city and state must be specified!");
         }
 
@@ -119,7 +119,7 @@ public class RandomUserMeController
             throw new ResourceNotFoundException("Invalid count. Range should be between 1 and 5000!");
         }
 
-        if (hobby.equals("")) {
+        if (hobby.trim().equals("")) {
             throw new ResourceNotFoundException("Hobby must be specified!");
         }
 

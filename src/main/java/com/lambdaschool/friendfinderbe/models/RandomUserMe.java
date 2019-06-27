@@ -21,6 +21,32 @@ public class RandomUserMe
     {
     }
 
+    public RandomUserMe(String firstName, String lastName, String title, String gender, String age, String dob, String nationality, String hobby, String email, String phone, String cell, String street, String city, String state, String postcode, String timezoneOffset, String timezoneDescription, String latitude, String longitude, String urlLarge, String urlMedium, String urlThumbnail)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.title = title;
+        this.gender = gender;
+        this.age = age;
+        this.dob = dob;
+        this.nationality = nationality;
+        this.hobby = hobby;
+        this.email = email;
+        this.phone = phone;
+        this.cell = cell;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.postcode = postcode;
+        this.timezoneOffset = timezoneOffset;
+        this.timezoneDescription = timezoneDescription;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.urlLarge = urlLarge;
+        this.urlMedium = urlMedium;
+        this.urlThumbnail = urlThumbnail;
+    }
+
     public RandomUserMe(JSONObject jsonObject)
     {
         try
