@@ -1,3 +1,4 @@
+/*
 package com.lambdaschool.friendfinderbe.controllers;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -62,3 +63,4 @@ public class RandomUserMeControllerIntegrationTest
         given().when().get("/profiles/hobby/outdoors/count/10").then().time(lessThan(5000L));
     }
 }
+*/

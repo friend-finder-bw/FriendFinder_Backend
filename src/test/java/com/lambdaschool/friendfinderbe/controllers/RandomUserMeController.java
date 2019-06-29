@@ -4,7 +4,10 @@ import com.lambdaschool.friendfinderbe.exceptions.ResourceNotFoundException;
 import com.lambdaschool.friendfinderbe.handlers.ExternalAccess;
 import com.lambdaschool.friendfinderbe.models.ErrorDetail;
 import com.lambdaschool.friendfinderbe.models.RandomUserMe;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,14 +30,15 @@ public class RandomUserMeController
 
     @ApiOperation(value = "Retrieves 10 user profiles", response = RandomUserMe.class, responseContainer = "List")
     @ApiResponses(value = {@ApiResponse(code = 201, message = "Profiles Found", response = RandomUserMe.class), @ApiResponse(code = 404, message = "Profiles Not Found", response = ErrorDetail.class)})
-    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping(value = "/unfiltered", produces = {"application/json"})
     public ResponseEntity<?> getProfiles(HttpServletRequest request)
     {
         logger.trace(request.getRequestURI() + " accessed");
 
         ExternalAccess externalAccess = new ExternalAccess();
-        ArrayList<RandomUserMe> arrayList = externalAccess.connectAndRetrieveJson("?results=10");
+        //ArrayList<RandomUserMe> arrayList = externalAccess.connectAndRetrieveJson("?results=10");
+        ArrayList<RandomUserMe> arrayList = externalAccess.connectAndRetrieveJson("?seed=ffbe&results=3", RandomUserMe.Hobby.Movies);
 
         return new ResponseEntity<>(arrayList, HttpStatus.OK);
     }
@@ -42,7 +46,7 @@ public class RandomUserMeController
 
     @ApiOperation(value = "Retrieves the specified number of user profiles", response = RandomUserMe.class, responseContainer = "List")
     @ApiResponses(value = {@ApiResponse(code = 201, message = "Profiles Found", response = RandomUserMe.class), @ApiResponse(code = 404, message = "Profiles Not Found", response = ErrorDetail.class)})
-    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping(value = "/unfiltered/{count}", produces = {"application/json"})
     public ResponseEntity<?> getProfilesCount(HttpServletRequest request, @ApiParam(value = "Number of profiles", required = true, example = "1") @PathVariable Long count)
     {
@@ -62,7 +66,7 @@ public class RandomUserMeController
 
     @ApiOperation(value = "Retrieves the specified number of user profiles which are filtered by gender", response = RandomUserMe.class, responseContainer = "List")
     @ApiResponses(value = {@ApiResponse(code = 201, message = "Profiles Found", response = RandomUserMe.class), @ApiResponse(code = 404, message = "Profiles Not Found", response = ErrorDetail.class)})
-    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping(value = "/gender/{gender}/count/{count}", produces = {"application/json"})
     public ResponseEntity<?> getProfilesCountByGender(HttpServletRequest request, @ApiParam(value = "Gender", required = true, example = "male") @PathVariable String gender, @ApiParam(value = "Number of profiles", required = true, example = "1") @PathVariable Long count)
     {
@@ -91,7 +95,7 @@ public class RandomUserMeController
 
     @ApiOperation(value = "Retrieves the specified number of user profiles with matching city, state", response = RandomUserMe.class, responseContainer = "List")
     @ApiResponses(value = {@ApiResponse(code = 201, message = "Profiles Found", response = RandomUserMe.class), @ApiResponse(code = 404, message = "Profiles Not Found", response = ErrorDetail.class)})
-    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping(value = "/city/{city}/state/{state}/count/{count}", produces = {"application/json"})
     public ResponseEntity<?> getProfilesCountByLocation(HttpServletRequest request, @ApiParam(value = "City", required = true, example = "Minneapolis") @PathVariable String city, @ApiParam(value = "State", required = true, example = "MN") @PathVariable String state, @ApiParam(value = "Number of profiles", required = true, example = "1") @PathVariable Long count)
     {
@@ -122,7 +126,7 @@ public class RandomUserMeController
 
     @ApiOperation(value = "Retrieves the specified number of user profiles with matching hobby", response = RandomUserMe.class, responseContainer = "List")
     @ApiResponses(value = {@ApiResponse(code = 201, message = "Profiles Found", response = RandomUserMe.class), @ApiResponse(code = 404, message = "Profiles Not Found", response = ErrorDetail.class)})
-    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping(value = "/hobby/{hobby}/count/{count}", produces = {"application/json"})
     public ResponseEntity<?> getProfilesCountByHobby(HttpServletRequest request, @ApiParam(value = "Hobby", required = true, example = "Outdoors") @PathVariable String hobby, @ApiParam(value = "Number of profiles", required = true, example = "1") @PathVariable Long count)
     {

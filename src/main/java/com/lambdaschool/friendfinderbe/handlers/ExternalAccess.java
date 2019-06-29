@@ -15,6 +15,11 @@ public class ExternalAccess
 {
     public ArrayList<RandomUserMe> connectAndRetrieveJson(String urlSuffix)
     {
+        return connectAndRetrieveJson(urlSuffix, null);
+    }
+
+    public ArrayList<RandomUserMe> connectAndRetrieveJson(String urlSuffix, RandomUserMe.Hobby hobby)
+    {
         HttpURLConnection connection = null;
         BufferedReader reader = null;
         ArrayList<RandomUserMe> arrayList = new ArrayList<>();
@@ -38,7 +43,7 @@ public class ExternalAccess
 
             for (int i = 0; i < jsonArray.length(); ++i)
             {
-                arrayList.add(new RandomUserMe(jsonArray.getJSONObject(i)));
+                arrayList.add(new RandomUserMe(jsonArray.getJSONObject(i), hobby));
             }
 
         } catch (Exception e)

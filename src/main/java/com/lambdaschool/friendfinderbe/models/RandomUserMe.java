@@ -18,7 +18,7 @@ public class RandomUserMe
     private int id;
     private String firstName, lastName, title, gender, age, dob, nationality, hobby, email, phone, cell, street, city, state, postcode, timezoneOffset, timezoneDescription, latitude, longitude, urlLarge, urlMedium, urlThumbnail;
 
-    private enum Hobby
+    public enum Hobby
     {Movies, Sports, Outdoors, Computers, Gaming}
 
     public RandomUserMe()
@@ -52,6 +52,11 @@ public class RandomUserMe
     }
 
     public RandomUserMe(JSONObject jsonObject)
+    {
+        this(jsonObject, null);
+    }
+
+    public RandomUserMe(JSONObject jsonObject, Hobby hobby)
     {
         try
         {
@@ -202,8 +207,13 @@ public class RandomUserMe
             e.printStackTrace();
         }
 
-
-        this.hobby = Hobby.values()[(int) (Math.random() * Hobby.values().length)].toString();
+        if (hobby == null)
+        {
+            this.hobby = Hobby.values()[(int) (Math.random() * Hobby.values().length)].toString();
+        } else
+        {
+            this.hobby = hobby.toString();
+        }
 
         switch (this.nationality)
         {
